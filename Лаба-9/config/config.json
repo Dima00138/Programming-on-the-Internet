@@ -1,0 +1,14 @@
+{
+  "development": {
+    "storage": "лаба-9/db.sqlite",
+    "dialect": "sqlite"
+  },
+  "test": {
+    "storage": "лаба-9/db.sqlite",
+    "dialect": "sqlite"
+  },
+  "production": {
+    "storage": "лаба-9/db.sqlite",
+    "dialect": "sqlite"
+  }
+}

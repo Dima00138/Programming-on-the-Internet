@@ -1,0 +1,16 @@
+{
+  "name": "lab5",
+  "version": "1.0.0",
+  "description": "",
+  "main": "05-01.js",
+  "scripts": {
+    "test": "dev"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^20.10.3",
+    "nodemailer": "^6.9.7",
+    "tdv-module-lab5": "^1.0.0"
+  }
+}

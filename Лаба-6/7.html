@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+        COMMENT: <input type="text" id="__comment"><br/>
+        X: <input type="number" id="x"><br/>
+        Y: <input type="number" id="y"><br/>
+        NAME:<input type="text" id="Nname"><br/>
+        SURNAME:<input type="text" id="surname"><br/>
+        <button onclick="Send()">Отправить</button>
+
+    <script>
+        function Send() {
+            console.log('SEND');
+            fetch('http://localhost:5000/json', {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(
+                    {
+                    "__comment": __comment.value, 
+                    "x": x.value, 
+                    "y": y.value,
+                    "s": "Cообщение",
+                    "m": ["a","b","c","d"],
+                    
+                    "o":
+                    {
+                        "surname": surname.value,
+                        "Nname": Nname.value
+                    }
+                })
+            })
+            .then((response) => response.json())
+            .then((pdata) => {
+                console.log('POST.pdata', pdata);
+            })
+            .catch((error) => {
+                console.error('Произошла ошибка:', error);
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Лаба-2</title>
+        <meta charset="utf-8"/>
+    </head>
+    <body>
+        <h2 id="ww">dfjndjfdj</h2>
+        <script>
+           (async () => {
+            let fetchd = await fetch('http://localhost:3000/api/name')
+
+            if (fetchd.ok)
+            document.querySelector("#ww").innerHTML = await fetchd.text()
+            else
+            console.log(fetchd.status)
+           })()
+        </script>
+    </body>
+</html>

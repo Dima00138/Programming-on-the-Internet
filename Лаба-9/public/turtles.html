@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turtles</title>
+</head>
+<body>
+    <div id="turtles">
+    </div>
+    <div id="pages">
+    </div>
+
+
+    <script>
+        let page = [1,0];
+        let count = 3;
+        let turtles = [];
+
+        (()=> {
+            fetch(`/api/turtles`)
+            .then((response) => response.json())
+            .then((turtle) => {
+                turtles = turtle;
+                page[1] = Math.ceil(turtle.length/count);
+                let div = document.getElementById('pages');
+
+                for (let i = 1; i <= page[1]; i++) {
+                    div.innerHTML += `<button onclick='ChangePage(${i})'>${i}</button>`;
+                }
+                ChangePage(1);
+            })
+        })()
+
+        function ChangePage(page) {
+            let div = document.querySelector('#turtles');
+            div.innerHTML = '';
+
+            for (let i = (page-1)*count; i < (page)*count; i++) {
+                div.innerHTML += `<div style='border: 1px black solid; padding: 10px;'>
+                    <p>Id: ${turtles[i].id}</p>
+                    <p>Name: ${turtles[i].name}</p>
+                    <p>WeaponId: ${turtles[i].weaponId}</p>
+                    <p>FavoritePizza1: ${turtles[i].favoritePizzaId}</p>
+                    <p>FavoritePizza2: ${turtles[i].secondFavoritePizzaId}</p>
+                    <p>Image: <image src='${turtles[i].image}'/></p>
+                    </div>`;
+            }
+        }
+    </script>
+</body>
+</html>

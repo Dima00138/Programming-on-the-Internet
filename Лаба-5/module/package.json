@@ -1,0 +1,11 @@
+{
+  "name": "tdv-module-lab5",
+  "version": "1.0.0",
+  "description": "lab5",
+  "main": "m06_TDV.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "dima00138",
+  "license": "ISC"
+}

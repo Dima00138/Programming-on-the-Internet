@@ -1,0 +1,5 @@
+﻿  tcp_server.cpp
+C:\Users\Dima00138\Documents\ПОИБМС-7\Программирование в Internet\Лаба-8\tcp_udp\tcp_server\tcp_server.cpp(75,74): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Dima00138\Documents\ПОИБМС-7\Программирование в Internet\Лаба-8\tcp_udp\tcp_server\tcp_server.cpp(50,24): warning C4101: 'end': unreferenced local variable
+C:\Users\Dima00138\Documents\ПОИБМС-7\Программирование в Internet\Лаба-8\tcp_udp\tcp_server\tcp_server.cpp(50,17): warning C4101: 'start': unreferenced local variable
+  tcp_server.vcxproj -> C:\Users\Dima00138\Documents\ПОИБМС-7\Программирование в Internet\Лаба-8\tcp_udp\x64\Debug\tcp_server.exe

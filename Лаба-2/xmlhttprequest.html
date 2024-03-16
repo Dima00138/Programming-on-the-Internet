@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Лаба-2</title>
+        <meta charset="utf-8"/>
+    </head>
+    <body>
+        <h2 id="ww">jsdfjbdjbfd</h2>
+        <script>
+            (async () =>{
+                let xml = new XMLHttpRequest();
+            xml.open('GET', 'http://localhost:3000/api/name', true)
+            xml.send()
+            xml.onload = () => {
+                document.querySelector("#ww").innerHTML = xml.responseText
+            }
+            })()
+        </script>
+    </body>
+</html>

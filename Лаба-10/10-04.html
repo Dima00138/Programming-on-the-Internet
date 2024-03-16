@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculties</title>
+</head>
+<body>
+    <h1>pulpits</h1>
+    <div id="faculties-list"></div>
+    <div id="pagination"></div>
+
+    <script>
+        const facultiesList = document.getElementById('faculties-list');
+        const pagination = document.getElementById('pagination');
+        let page = [1,0];
+        let count = 1;
+        let pulpits = [];
+
+        (()=> {
+            fetch(`/api/pulpits/teacherCount`)
+            .then((response) => response.json())
+            .then((pulpit) => {
+                console.log(pulpit);
+                pulpits = pulpit;
+                page[1] = Math.ceil(pulpit.length/count);
+
+                for (let i = 1; i <= page[1]; i++) {
+                    pagination.innerHTML += `<button onclick='ChangePage(${i})'>${i}</button>`;
+                }
+                ChangePage(1);
+            })
+        })()
+    
+        function ChangePage(page) {
+            facultiesList.innerHTML = '';
+
+            for (let i = (page-1)*count; i < (page)*count; i++) {
+                facultiesList.innerHTML += 
+                `<div style='border: 1px black solid; padding: 10px;'>
+                    <p>Id: ${pulpits[i].pulpit}</p>
+                    <p>Name: ${pulpits[i].pulpit_name}</p>
+                    <p>Faculty: ${pulpits[i].faculty_id}</p>
+                    <p>Subjects: ${pulpits[i].subjects.map(el => {
+                        return `<p>${el.subject}</p>
+                                <p>${el.subject_name}</p>`
+                    })}</p>
+                    <p>Teachers: ${pulpits[i]._count.teachers}</p>
+                    </div>`;
+            }
+        }
+    </script>
+</body>
+</html>

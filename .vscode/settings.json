@@ -1,0 +1,12 @@
+{
+    "cSpell.ignoreWords": [
+        "Pizzaservice",
+        "turtleservice",
+        "weaponservice"
+    ],
+    "editor.fontFamily": "Fira Code, monospace",
+    "editor.fontSize": 16,
+    "[prisma]": {
+        "editor.defaultFormatter": "Prisma.prisma"
+      }
+}

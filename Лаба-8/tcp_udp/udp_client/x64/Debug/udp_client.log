@@ -1,0 +1,5 @@
+﻿  udp_client.cpp
+C:\Users\Dima00138\Documents\ПОИБМС-7\Программирование в Internet\Лаба-8\tcp_udp\udp_client\udp_client.cpp(42,65): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Dima00138\Documents\ПОИБМС-7\Программирование в Internet\Лаба-8\tcp_udp\udp_client\udp_client.cpp(34,28): warning C4101: 'end': unreferenced local variable
+C:\Users\Dima00138\Documents\ПОИБМС-7\Программирование в Internet\Лаба-8\tcp_udp\udp_client\udp_client.cpp(34,21): warning C4101: 'start': unreferenced local variable
+  udp_client.vcxproj -> C:\Users\Dima00138\Documents\ПОИБМС-7\Программирование в Internet\Лаба-8\tcp_udp\x64\Debug\udp_client.exe

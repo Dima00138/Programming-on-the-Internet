@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>HelloW</title>
+    </head>
+    <body>
+        <script>
+            function GetAll() {
+                fetch('http://localhost:5000/api/db', {
+                    method: 'GET', mode: 'no-cors',
+                    headers: {'Content-type' : 'application/json', 'Accept': 'application/json'}
+                })
+                .then(response => {return response.json();})
+                .then(pdata => {
+                    console.log(pdata);
+                    result.innerHTML = '';
+                    pdata.forEach((element, key) => {
+                        result.innerHTML += '<span id='+element.id+'>' + element.id + '. ' + element.name + ' ' + element.bday + '<span/>' + '</br>';
+                    });
+                })
+            }
+
+            </script>
+        <div id="result"></div>
+        <button onclick="GetAll()" style="margin-top: 5px;">GetAll</button>   
+        <div style="padding: 20px;">
+            <div style="margin-top: 10px;">
+                <label>ID
+                    <input type="number" id="Id" min="0"/>
+                </label>
+            </div>
+            <div style="margin-top: 10px;">
+                <label>Name
+                    <input type="text" id="Name"/>
+                </label>
+            </div>
+            <div style="margin-top: 10px;">
+                <label>Bday
+                    <input type="date" id="Bday"/>
+                </label>
+            </div>
+            <div style="margin-top: 15px;">
+                <button onclick="Post()">Post</button>
+            </div>
+        </div>
+        <script>
+            function Post() {
+                fetch('http://localhost:5000/api/db', 
+                {method: 'POST', mode: 'no-cors',
+                headers: {'Content-type' : 'application/json', 'Accept': 'application/json'},
+                body: JSON.stringify({id: +Id.value, name: Name.value, bday: Bday.value})
+            })
+            }
+            
+            function Update(target) {          
+                fetch('http://localhost:5000/api/db', 
+                {method: 'PUT',
+                headers: {'Content-type' : 'application/json', 'Accept': 'application/json'},
+                body: JSON.stringify({id: +target.id, name: Name.value, bday: Bday.value})
+            })
+            }
+            function Delete(target) {          
+                fetch('http://localhost:5000/api/db', 
+                {method: 'DELETE',
+                headers: {'Content-type' : 'application/json', 'Accept': 'application/json'},
+                body: +target.id
+            })
+            }
+            document.querySelector("#result").addEventListener('click', (e)=>
+            {
+                if(e.target.id !=="result")
+                {
+                    e.target.style.backgroundColor="#5555"
+                    Update(e.target)
+
+                }
+            })
+            document.querySelector("#result").addEventListener('wheel', (e)=>
+            {
+                if(e.target.id !=="result")
+                {
+                    e.target.style.backgroundColor="red"
+                    Delete(e.target)
+
+                }
+            })
+
+        </script>
+</body>
+</html>
