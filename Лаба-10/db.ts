@@ -4,7 +4,6 @@ class DbController {
 
 prisma = new PrismaClient();
 
-// Создание записей FluentAPI
 async createRecords(prisma : PrismaClient) {
   const fac1 = await prisma.faculty.create({
     data: {
