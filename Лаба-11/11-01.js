@@ -53,15 +53,15 @@ passport.use(new DigestStrategy({ qop: 'auth' },
     }
 ));
 
-const checkL = (req, res, next) => {
+// const checkL = (req, res, next) => {
 
-  if (req.session.logout && req.headers.authorization) {
-      delete req.headers.authorization;
-      req.session.logout = false;
-      req.logout(() => {});
-  }
-  next();
-}
+//   if (req.session.logout && req.headers.authorization) {
+//       delete req.headers.authorization;
+//       req.session.logout = false;
+//       req.logout(() => {});
+//   }
+//   next();
+// }
 
 app.get('/login', (req, res, next) => {
     if (req.session.logout && req.headers.authorization) {
