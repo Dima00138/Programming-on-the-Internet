@@ -40,7 +40,10 @@ User.init(
 //     console.log('Ошибка при создании таблицы пользователей:', error);
 //   });
 
-const redis = new Redis();
+const redis = new Redis({
+  host: 'localhost',
+  port: 6379
+ });
 
 const generateAccessToken = (username: string) => {
   return jwt.sign({ username }, 'access-secret', { expiresIn: '10m' });
@@ -89,7 +92,7 @@ app.post('/login', async (req, res) => {
     const refreshToken = generateRefreshToken(user.username);
 
     res.cookie('accessToken', accessToken, { httpOnly: true, sameSite: 'strict' });
-    res.cookie('refreshToken', refreshToken, { httpOnly: true, sameSite: 'strict', path: '/refresh-token' });
+    res.cookie('refreshToken', refreshToken, { httpOnly: true, sameSite: 'strict'});
 
     res.redirect('/resource');
   } else {
@@ -116,7 +119,7 @@ app.get('/refresh-token', (req, res) => {
     redis.sadd('blacklist', refreshToken);
 
     res.cookie('accessToken', newAccessToken, { httpOnly: true, sameSite: 'strict' });
-    res.cookie('refreshToken', newRefreshToken, { httpOnly: true, sameSite: 'strict', path: '/refresh-token' });
+    res.cookie('refreshToken', newRefreshToken, { httpOnly: true, sameSite: 'strict' });
 
     res.redirect('/resource');
   });
@@ -124,15 +127,22 @@ app.get('/refresh-token', (req, res) => {
 
 app.get('/logout', (req, res) => {
   const refreshToken = req.cookies.refreshToken;
-
+  console.log(redis.smembers('blacklist').then((d) => console.log(d)));
+  
   if (refreshToken) {
-    redis.sadd('blacklist', refreshToken);
+    redis.sadd('blacklist', refreshToken, (err, reply) => {
+      if (err) {
+        console.error('Ошибка при добавлении токена в черный список:', err);
+        res.status(500).send('Ошибка сервера');
+      } else {
+        console.log('Токен успешно добавлен в черный список:', refreshToken);
+        res.clearCookie('accessToken');
+        res.clearCookie('refreshToken');
+        res.send('Выход из системы успешно выполнен');
+      }
+    });
+    
   }
-
-  res.clearCookie('accessToken');
-  res.clearCookie('refreshToken');
-
-  res.send('Выход из системы успешно выполнен');
 });
 
 app.get('/register', (req, res) => {

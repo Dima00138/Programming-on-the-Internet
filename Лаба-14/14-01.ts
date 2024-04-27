@@ -54,6 +54,8 @@ const checkAbility = (action: string, subject: string, params : string = "") => 
   return async (req: Request, res: Response, next: NextFunction) => {
      const ability = (req as any).ability;
      const { id } = req.params;
+    //  console.log(ability.can(action, subject));
+     
 
      if ((subject !== 'user' && action === 'update')
      || (action === 'create' && subject === 'Commit')) {      
@@ -83,8 +85,7 @@ app.use((req, res, next) => {
     const user : any = req.user;
     const ability = defineAbility((can, cannot) => {
       
-    if (user) {
-       if (user.role === 'guest' || user === undefined) {
+       if (user?.role === 'guest' || user === undefined) {
          can('read', 'Commit');
          can('read', 'Repo');
          can('read', 'Ability');
@@ -108,7 +109,7 @@ app.use((req, res, next) => {
         //  can('manage', 'Repo');
         //  can('manage', 'Commit');
        }
-    }});
+    });
    
     (req as any).ability = ability;
     next();
