@@ -54,20 +54,39 @@ const generateRefreshToken = (username: string) => {
 };
 
 const isAuthenticated = (req: RequestWithUserId, res: Response, next: NextFunction) => {
-    
   const accessToken = req.cookies.accessToken;
+  const refreshToken = req.cookies.refreshToken;
 
   if (!accessToken) {
     return res.status(401).send('Неаутентифицированный доступ');
   }
 
-  jwt.verify(accessToken, 'access-secret', (err: any, decoded: any) => {
+  jwt.verify(refreshToken, 'refresh-secret', (err: any, decoded: any) => {
     if (err) {
       return res.status(401).send('Неаутентифицированный доступ');
     }
 
-    req.username = decoded.username;
-    next();
+    let blacklist: String[] = [];
+
+    redis.smembers('blacklist').then(val => {
+      blacklist = val;
+      console.log(val);
+      console.log(refreshToken);
+      console.log(blacklist.includes(refreshToken));
+
+      if (blacklist.includes(refreshToken)) {
+        return res.status(401).send('Неаутентифицированный доступ');
+      }
+
+      jwt.verify(accessToken, 'access-secret', (err: any, decoded: any) => {
+        if (err) {
+          return res.status(401).send('Неаутентифицированный доступ');
+        }
+
+        req.username = decoded.username;
+        next();
+      });
+    });
   });
 };
 
